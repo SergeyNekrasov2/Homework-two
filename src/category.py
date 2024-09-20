@@ -1,4 +1,3 @@
-# from itertools import product
 
 
 class Category:
