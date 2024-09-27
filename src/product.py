@@ -1,20 +1,28 @@
 class Product:
-    """Класс для представления продукта"""
-    name: str
-    description: str
-    price: int
-    quantity: int
-
-    def __init__(self, name, description, price, quantity):
+    def __init__(self, name: str, description: str, price: int, quantity: int):
         self.name = name
         self.description = description
-        self.price = price
+        self.__price = price
         self.quantity = quantity
 
+    @property
+    def price(self):
+        return self.__price
 
-if __name__ == "__main__":
-    product = Product("Samsung Galaxy S23 Ultra", "256GB, 200MP камера", 180000.0, "5")
-    print(product.name)
-    print(product.description)
-    print(product.price)
-    print(product.quantity)
+    @price.setter
+    def price(self, value: int):
+        if value <= 0:
+            print("Цена не должна быть нулевая или отрицательная")
+        else:
+            self.__price = value
+
+    @classmethod
+    def new_product(cls, product_data):
+        name = product_data.get("name")
+        description = product_data.get("description")
+        price = product_data.get("price")
+        quantity = product_data.get("quantity")
+        return cls(name, description, price, quantity)
+
+    def __repr__(self):
+        return f"Product(name='{self.name}', description='{self.description}', price={self.price}, quantity={self.quantity})"
