@@ -1,26 +1,26 @@
+from src.product import Product
 
 
 class Category:
-    """Класс для предствавления категории"""
-    name: str
-    description: str
-    products: list
-    product_count = 0
-    category_count = 0
-
-    def __init__(self, name, description, products):
+    def __init__(self, name: str, description: str, products: list):
         self.name = name
         self.description = description
-        self.products = products
-        Category.product_count += len(products) if products else 0
+        self.__products = products if products else []
         Category.category_count += 1
+        Category.product_count += len(self.__products)
 
+    category_count = 0
+    product_count = 0
 
-if __name__ == "__main__":
-    category = Category("Спорт", "Спортивные кроссовки", "Бутсы")
+    def add_product(self, new_product: Product):
+        self.__products.append(new_product)
+        Category.product_count += 1
 
-    print(category.name)
-    print(category.description)
-    print(category.products)
-    print(category.product_count)
-    print(category.category_count)
+    @property
+    def product_list(self):
+        product_str = ""
+        for product in self.products:
+            product_str += (
+                f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+            )
+        return product_str
