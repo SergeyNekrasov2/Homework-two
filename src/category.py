@@ -17,7 +17,7 @@ class Category:
         return self.__products
 
     def add_product(self, new_product: Product):
-        if type(new_product, Product):
+        if isinstance(new_product, Product):
             self.__products.append(new_product)
             Category.product_count += 1
         else:
